@@ -74,7 +74,33 @@ angular.module('d3jsApp')
           })
           .call(force.drag());//节点能够拖动
 
+        //添加描述节点的文字
+        var svg_texts = svg.selectAll("text")
+          .data(nodes)
+          .enter()
+          .append("text")
+          .style("fill", "black")
+          .attr("dx", 20)
+          .attr("dy", 8)
+          .text(function(d){
+            return d.name;
+          });
 
+        force.on("tick", function(){ //对于每一个时间间隔
+          //更新连线坐标
+          svg_edges.attr("x1",function(d){ return d.source.x; })
+            .attr("y1",function(d){ return d.source.y; })
+            .attr("x2",function(d){ return d.target.x; })
+            .attr("y2",function(d){ return d.target.y; });
+
+          //更新节点坐标
+          svg_nodes.attr("cx",function(d){ return d.x; })
+            .attr("cy",function(d){ return d.y; });
+
+          //更新文字坐标
+          svg_texts.attr("x", function(d){ return d.x; })
+            .attr("y", function(d){ return d.y; });
+        });
 
       }
     };
