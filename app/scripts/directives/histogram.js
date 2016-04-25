@@ -65,19 +65,83 @@ angular.module('d3jsApp')
           .data(myData)
           .enter()
           .append("rect")
-          .attr("class", "MyRect")
+          //.attr("class", "MyRect")
+          .attr("fill", "steelblue")//如果添加交互，填充的颜色不要写在css里面
           .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
           .attr("x", function(d,i){
             return xScale(i) + rectPadding/2
           })
+          .attr("width", xScale.rangeBand() - rectPadding)
+
+          //添加交互效果
+          .on("mouseover",function(d,i){
+            d3.select(this)
+              .attr("fill","yellowgreen");
+          })
+          .on("mouseout",function(d,i){
+            d3.select(this)
+              .transition()
+              .duration(500)
+              .attr("fill","steelblue");
+          })
+
+          //加入过渡效果，设置开始位置为最小值
+          .attr("y", function(d){
+            var minPos = yScale.domain()[0];
+            return yScale(minPos);
+          })
+          //设置最小高度为 0
+          .attr("height", function(d){
+            return 0;
+          })
+        //此处开始添加过渡动画效果
+          .transition()
+          .duration(2000)
+          .delay(function(d,i){
+            return i * 200;
+          })
+          .ease("bounce")
           .attr("y", function(d){
             return yScale(d);
           })
-          .attr("width", xScale.rangeBand() - rectPadding)
           .attr("height", function(d){
-            return height - padding.top - padding.bottom-yScale(d);
+            return height - padding.top - padding.bottom - yScale(d);
           });
 
+        //添加文字
+        var texts = svg.selectAll(".MyText")
+          .data(myData)
+          .enter()
+          .append("text")
+          .attr("class", "MyText")
+          .attr("transform", "translate(" + 0 + "," + padding.top + ")")
+          .attr("x", function(d, i){
+            return xScale(i) + rectPadding/2;
+          })
+
+          //开始时设置文字的开始位置为最小值
+          .attr("y", function(d){
+            var minPos = yScale.domain()[0];
+            return yScale(minPos);
+          })
+          .attr("dx", function(){
+            return (xScale.rangeBand() - rectPadding/2);
+          })
+          .attr("dy", function(d){
+            return 20;
+          })
+          .text(function(d){
+            return d;
+          })
+          .transition()
+          .delay(function(d, i){
+            return i * 200;
+          })
+          .duration(2000)
+          .ease("bounce")
+          .attr("y", function(d){
+            return yScale(d);
+          });
       }
     };
   });

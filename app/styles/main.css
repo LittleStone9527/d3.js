@@ -98,14 +98,18 @@ body {
   font-size: 11px;
 }
 
-.MyRect {
+/*.MyRect {
   fill: steelblue;
-}
+}*/
 
 .MyText {
   fill: white;
   text-anchor: middle;
 }
 
-
+.force{
+  padding: 100px;
+  fill: #ccc;
+  background-color: #5bc0de;
+}
 

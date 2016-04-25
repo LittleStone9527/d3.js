@@ -35,6 +35,12 @@ angular
       .when('/histogram', {
         templateUrl: 'views/histogram.html'
       })
+      .when('/pie', {
+        templateUrl: 'views/pie.html'
+      })
+      .when('/force', {
+        templateUrl: 'views/force.html'
+      })
       .otherwise({
         redirectTo: '/'
       });
