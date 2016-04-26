@@ -15,7 +15,8 @@ angular.module('d3jsApp')
         var width  = 600;
         var height = 600;
         //添加画布
-        var svg = d3.select(".body")
+        //var svg = d3.select(".body")
+        var svg = d3.select(element[0])
           .append("svg")
           .attr("width", width)
           .attr("height", height);

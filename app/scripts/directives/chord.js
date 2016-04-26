@@ -21,7 +21,8 @@ angular.module('d3jsApp')
         var outerRadius = innerRadius * 1.1;
         var color20 = d3.scale.category20c();
 
-        var svg = d3.select(".body")
+        //var svg = d3.select(".body")
+        var svg = d3.select(element[0])
           .append("svg")
           .attr("width", width)
           .attr("height", height)
