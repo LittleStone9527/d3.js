@@ -41,6 +41,9 @@ angular
       .when('/force', {
         templateUrl: 'views/force.html'
       })
+      .when('/chord', {
+        templateUrl: 'views/chord.html'
+      })
       .otherwise({
         redirectTo: '/'
       });

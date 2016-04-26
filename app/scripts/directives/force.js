@@ -27,9 +27,9 @@ angular.module('d3jsApp')
           { source : 0  , target: 1 } ,
           { source : 0  , target: 2 } ,
           { source : 0  , target: 3 } ,
-          { source : 1  , target: 4 } ,
+          { source : 2  , target: 4 } ,
           { source : 1  , target: 5 } ,
-          { source : 1  , target: 6 }
+          { source : 3  , target: 6 }
         ];
 
         var width=600;
@@ -79,27 +79,29 @@ angular.module('d3jsApp')
           .data(nodes)
           .enter()
           .append("text")
-          .style("fill", "black")
+          .style("fill", "#fff")
           .attr("dx", 20)
           .attr("dy", 8)
           .text(function(d){
             return d.name;
           });
 
-        force.on("tick", function(){ //对于每一个时间间隔
+        //添加tick事件
+        force.on("tick", function(){
           //更新连线坐标
-          svg_edges.attr("x1",function(d){ return d.source.x; })
-            .attr("y1",function(d){ return d.source.y; })
-            .attr("x2",function(d){ return d.target.x; })
-            .attr("y2",function(d){ return d.target.y; });
+          svg_edges.attr("x1", function(d){ return d.source.x})
+            .attr("y1", function(d){ return d.source.y})
+            .attr("x2", function(d){ return d.target.x})
+            .attr("y2", function(d){ return d.target.y});
 
-          //更新节点坐标
-          svg_nodes.attr("cx",function(d){ return d.x; })
-            .attr("cy",function(d){ return d.y; });
+          //更新节点坐
+          svg_nodes.attr("cx", function(d){ return d.x})
+            .attr("cy", function(d){ return d.y});
 
           //更新文字坐标
-          svg_texts.attr("x", function(d){ return d.x; })
-            .attr("y", function(d){ return d.y; });
+          svg_texts.attr("x", function(d){ return d.x})
+            .attr("y", function(d){ return d.y});
+
         });
 
       }
