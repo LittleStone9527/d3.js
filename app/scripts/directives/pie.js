@@ -21,7 +21,8 @@ angular.module('d3jsApp')
         var myData = [ 30 , 10 , 43 , 55 , 13 ];
 
         //svg
-        var svg = d3.select(".body")
+        //var svg = d3.select(".body")
+        var svg = d3.select(element[0])
           .append("svg")
           .attr("width", width)
           .attr("height", height);

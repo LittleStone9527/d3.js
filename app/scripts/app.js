@@ -44,6 +44,9 @@ angular
       .when('/chord', {
         templateUrl: 'views/chord.html'
       })
+      .when('/cluster', {
+        templateUrl: 'views/cluster.html'
+      })
       .otherwise({
         redirectTo: '/'
       });

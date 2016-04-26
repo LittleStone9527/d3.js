@@ -61,10 +61,59 @@ angular.module('d3jsApp')
           .data(groups)
           .enter()
           .append("path")
-          .style("fill", function(d){ return color20(d.index);})
-          .style("stroke", function(d){ return color20(d.index);})
+          .style("fill", function (d) {
+            return color20(d.index);
+          })
+          .style("stroke", function (d) {
+            return color20(d.index);
+          })
           .attr("d", outer_arc);
 
+        g_outer.selectAll("text")
+          .data(groups)
+          .enter()
+          .append("text")
+          .each(function (d, i) {
+            d.angle = (d.startAngle + d.endAngle) / 2;
+            d.name = city_name[i];
+          })
+          .attr("dy", "0.35em")
+          .attr("transform", function (d) {
+            return "rotate(" + (d.angle * 180 / Math.PI) + ")" +
+              "translate(0," + -1.0 * (outerRadius + 10) + ")" +
+              ((d.angular > Math.PI * 3 / 4 && d.angle < Math.PI * 5 / 4) ? "rotate(180)" : "")
+          })
+
+          .text(function (d) {
+            return d.name;
+          });
+
+        //绘制弦
+        var inner_chord = d3.svg.chord()
+          .radius(innerRadius);
+
+        svg.append("g")
+          .attr("class", "chord")
+          .selectAll("path")
+          .data(chords)
+          .enter()
+          .append("path")
+          .attr("d", inner_chord)
+          .style("fill", function (d) {
+            return color20(d.source.index);
+          })
+          .style("opacity",.5)
+
+          .on("mouseover", function(d, i){
+            d3.select(this)
+              .style("fill", "yellowgreen");
+          })
+          .on("mouseout", function(d, i){
+            d3.select(this)
+              .transition()
+              .duration(1000)
+              .style("fill", color20(d.source.index));
+          })
 
 
       }
